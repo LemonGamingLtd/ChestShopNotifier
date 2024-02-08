@@ -50,7 +50,7 @@ public class History extends WrappedRunnable {
 
     public void run() {
         gatherResults();
-        plugin.getScheduler().runTaskAsynchronously(this::showResults);
+        plugin.getScheduler().runTask(this::showResults);
     }
 
     private void gatherResults() {
