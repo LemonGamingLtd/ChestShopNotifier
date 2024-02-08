@@ -1,12 +1,12 @@
 package com.wfector.notifier;
 
+import me.nahu.scheduler.wrapper.runnable.WrappedRunnable;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import org.bukkit.scheduler.BukkitRunnable;
-
-public class BatchRunner extends BukkitRunnable {
+public class BatchRunner extends WrappedRunnable {
     private ChestShopNotifier plugin;
 
     public BatchRunner(ChestShopNotifier main) {

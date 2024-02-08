@@ -11,14 +11,14 @@ import java.util.logging.Level;
 
 import com.Acrobot.ChestShop.Database.Account;
 import com.Acrobot.ChestShop.UUIDs.NameManager;
+import me.nahu.scheduler.wrapper.runnable.WrappedRunnable;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 import com.wfector.notifier.ChestShopNotifier;
 import org.bukkit.command.CommandSender;
-import org.bukkit.scheduler.BukkitRunnable;
 
-public class Converter extends BukkitRunnable {
+public class Converter extends WrappedRunnable {
 
     private final ChestShopNotifier plugin;
     private final CommandSender sender;

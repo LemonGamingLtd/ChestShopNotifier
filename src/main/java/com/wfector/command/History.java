@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import com.Acrobot.ChestShop.Events.TransactionEvent.TransactionType;
 import com.wfector.notifier.HistoryEntry;
+import me.nahu.scheduler.wrapper.runnable.WrappedRunnable;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -17,9 +18,8 @@ import com.wfector.notifier.ChestShopNotifier;
 import com.wfector.util.Time;
 import com.Acrobot.ChestShop.Economy.Economy;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
-public class History extends BukkitRunnable {
+public class History extends WrappedRunnable {
 
     private final UUID userId;
     private final String userName;
@@ -50,7 +50,7 @@ public class History extends BukkitRunnable {
 
     public void run() {
         gatherResults();
-        plugin.getServer().getScheduler().runTask(plugin, this::showResults);
+        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, this::showResults);
     }
 
     private void gatherResults() {

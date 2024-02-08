@@ -1,7 +1,7 @@
 package com.wfector.notifier;
 
+import me.nahu.scheduler.wrapper.runnable.WrappedRunnable;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
 
-public class LoginRunner extends BukkitRunnable {
+public class LoginRunner extends WrappedRunnable {
     private final ChestShopNotifier plugin;
     private final UUID playerId;
 

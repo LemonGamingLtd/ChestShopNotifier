@@ -2,8 +2,8 @@ package com.wfector.command;
 
 import com.wfector.notifier.ChestShopNotifier;
 import com.wfector.util.Time;
+import me.nahu.scheduler.wrapper.runnable.WrappedRunnable;
 import org.bukkit.command.CommandSender;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class CleanDatabase extends BukkitRunnable {
+public class CleanDatabase extends WrappedRunnable {
 
     private final ChestShopNotifier plugin;
     private final CommandSender sender;

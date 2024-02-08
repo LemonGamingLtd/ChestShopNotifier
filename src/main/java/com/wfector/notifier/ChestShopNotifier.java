@@ -19,6 +19,8 @@ import com.Acrobot.ChestShop.Utils.ItemUtil;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.zaxxer.hikari.HikariDataSource;
+import me.nahu.scheduler.wrapper.FoliaWrappedJavaPlugin;
+import me.nahu.scheduler.wrapper.runnable.WrappedRunnable;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -28,16 +30,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import com.Acrobot.ChestShop.Events.TransactionEvent;
 import com.Acrobot.ChestShop.UUIDs.NameManager;
 import com.wfector.command.CommandRunner;
 import com.wfector.util.Time;
 
-import org.bukkit.scheduler.BukkitRunnable;
-
-public class ChestShopNotifier extends JavaPlugin implements Listener {
+public class ChestShopNotifier extends FoliaWrappedJavaPlugin implements Listener {
 
     private HikariDataSource ds;
     private DbType dbType = DbType.SQLITE;
@@ -54,13 +53,15 @@ public class ChestShopNotifier extends JavaPlugin implements Listener {
     public Cache<UUID, String> playerNames = CacheBuilder.newBuilder().expireAfterWrite(5, TimeUnit.MINUTES).build();
 
     public void onEnable() {
+        getLogger().info("Successfully initialized scheduler of type: " + getScheduler().getImplementationType());
+
         getCommand("csn").setExecutor(new CommandRunner(this));
 
         saveDefaultConfig();
         updateConfiguration(null);
 
         if (getConfig().getBoolean("clean-on-startup.enabled") && getConfig().getString("clean-on-startup.command", null) != null) {
-            new BukkitRunnable() {
+            new WrappedRunnable() {
                 @Override
                 public void run() {
                     getLogger().log(Level.INFO, "Automatic database cleaning on startup is enabled!");
@@ -75,7 +76,7 @@ public class ChestShopNotifier extends JavaPlugin implements Listener {
     }
 
     public void onDisable() {
-        if(batch.size() > 0) {
+        if(!batch.isEmpty()) {
             getLogger().log(Level.INFO, "Database queue is not empty. Uploading now...");
             new BatchRunner(this).run();
             getLogger().log(Level.INFO, "Done uploading database queue!");
@@ -126,7 +127,7 @@ public class ChestShopNotifier extends JavaPlugin implements Listener {
 
         getLogger().log(Level.INFO, "Connecting to the database...");
 
-        new BukkitRunnable() {
+        new WrappedRunnable() {
             public void run() {
                 try (Connection c = getConnection()){
                     Statement statement = c.createStatement();

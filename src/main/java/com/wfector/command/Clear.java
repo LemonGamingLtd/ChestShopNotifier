@@ -6,10 +6,10 @@ import java.sql.Statement;
 import java.util.UUID;
 
 import com.wfector.notifier.ChestShopNotifier;
+import me.nahu.scheduler.wrapper.runnable.WrappedRunnable;
 import org.bukkit.command.CommandSender;
-import org.bukkit.scheduler.BukkitRunnable;
 
-public class Clear extends BukkitRunnable {
+public class Clear extends WrappedRunnable {
 
     private final ChestShopNotifier plugin;
     private final CommandSender sender;
