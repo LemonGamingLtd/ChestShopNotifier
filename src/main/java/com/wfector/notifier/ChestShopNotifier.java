@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.io.File;
 
+import com.Acrobot.ChestShop.Commands.Toggle;
 import com.Acrobot.ChestShop.Database.Account;
 import com.Acrobot.ChestShop.Utils.ItemUtil;
 import com.google.common.cache.Cache;
@@ -218,6 +219,9 @@ public class ChestShopNotifier extends FoliaWrappedJavaPlugin implements Listene
         }
 
         final Player p = e.getPlayer();
+        if (Toggle.isIgnoring(p)) {
+            return;
+        }
 
         new LoginRunner(this, p.getUniqueId()).runTaskLaterAsynchronously(this, joinNotificationDelay * 20);
     }
