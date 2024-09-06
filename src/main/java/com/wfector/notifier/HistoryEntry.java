@@ -72,26 +72,25 @@ public class HistoryEntry {
         if (this == o) {
             return true;
         }
-        if (o instanceof HistoryEntry) {
-            HistoryEntry entry = (HistoryEntry) o;
-            return this.getCustomerId().equals(entry.getCustomerId())
-                    && this.getItemId().equals(entry.getItemId())
-                    && this.getAmountPaid() == entry.getAmountPaid()
-                    && this.getTime() == entry.getTime()
-                    && this.getType() == entry.getType()
-                    && this.getQuantity() == entry.getQuantity()
-                    && this.isUnread() == entry.isUnread();
+        if (o instanceof HistoryEntry entry) {
+            return this.getCustomerId() != null && this.getCustomerId().equals(entry.getCustomerId()) &&
+                this.getItemId() != null && this.getItemId().equals(entry.getItemId()) &&
+                this.getAmountPaid() == entry.getAmountPaid() &&
+                this.getTime() == entry.getTime() &&
+                this.getType() != null && this.getType() == entry.getType() &&
+                this.getQuantity() == entry.getQuantity() &&
+                this.isUnread() == entry.isUnread();
         }
         return false;
     }
 
     public boolean isSimilar(HistoryEntry entry) {
-        return equals(entry)
-                || this.getCustomerId().equals(entry.getCustomerId())
-                && this.getType() == entry.getType()
-                && this.getPricePerItem() == entry.getPricePerItem()
-                && this.getItemId().equals(entry.getItemId())
-                && this.getTime() < entry.getTime() + 5 * 60 // Check if they are a maximum of 5 minutes apart
+        return equals(entry) ||
+            this.getCustomerId() != null && this.getCustomerId().equals(entry.getCustomerId()) &&
+                this.getType() != null && this.getType() == entry.getType() &&
+                this.getPricePerItem() == entry.getPricePerItem() &&
+                this.getItemId() != null && this.getItemId().equals(entry.getItemId()) &&
+                this.getTime() < entry.getTime() + 5 * 60 // Check if they are a maximum of 5 minutes apart
                 && this.getTime() > entry.getTime() - 5 * 60;
     }
 
